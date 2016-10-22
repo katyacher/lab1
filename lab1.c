@@ -25,17 +25,18 @@
 int main(){
 	int numerator_1, denominator_1;
 	int numerator_2, denominator_2;
+	int result_num, result_den;
 	char operator[3];
-	float number_1, number_2;
+	float float_value_1, float_value_2;
 
 	// запрос и ввод данных
 	while(1){
-		printf("Enter first number:\n");
+		printf("Enter first value:\n");
 		if (scanf("%i/%i",&numerator_1, &denominator_1) ==2){
 			break;
 		}
 		else{
-			if (scanf("%f", &number_1)==1){
+			if (scanf("%f", &float_value_1)==1){
 				break;
 			}
 			else {
@@ -45,19 +46,66 @@ int main(){
 
 	scanf("%2s",&operator);
 
-	printf("Enter second number:\n");
+	printf("Enter second value:\n");
 	if (scanf("%i/%i",&numerator_2, &denominator_2) !=2){
-			scanf("%f", &number_2);
+			scanf("%f", &float_value_2);
 		};
 
 	// TODO проверка
 	// парсинг строки
+	// выполнение действий с рациональными дробями
+    switch(operator){
+		case '+':
+			result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
+			result_den = denominator_1*denominator_2;
+			// TODO сокращение дроби путем поиска НОК используя алгоритм Евклида
+		break;
 
-			// выполнение действий с числами
+		case '-':
+			result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
+			result_den = denominator_1*denominator_2;
+		break;
+
+		case '*':
+			result_num = numerator_1*numerator_2;
+			result_den = denominator_1*denominator_2;
+		break;
+
+		case '/':
+			result_num = numerator_1*denominator_2;
+			result_den = denominator_1*numerator_2;
+		break;
+		default:
+
+		break;
+    }
+    // работа с десятичными дробями
+
+    // TODO преобразовать рациональную дробь в десятичную
+    switch (operator){
+    	case '>':
+
+    	break;
+
+    	case '<':
+
+    	break;
+    	case '>=':
+
+    	break;
+    	case '<=':
+
+    	break;
+    	case '!=':
+
+    	break;
+
+    }
+
 	return 0;
 }
 /*
-пример
+пример создания дочернего процесса
 
 int main()
 {
