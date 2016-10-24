@@ -21,7 +21,17 @@
 /*! \brief Main function
  *  \return
  */
-
+int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out grate common division (NOD)
+   int c;
+   while (b) {
+      c = a % b;
+      a = b;
+      b = c;
+   }
+   return fabs(a);
+ }
+  
+ 
 int main(){
 	int numerator_1, denominator_1;
 	int numerator_2, denominator_2;
@@ -47,8 +57,16 @@ int main(){
 	scanf("%2s",&operator);
 
 	printf("Enter second value:\n");
-	if (scanf("%i/%i",&numerator_2, &denominator_2) !=2){
-			scanf("%f", &float_value_2);
+	if (scanf("%i/%i",&numerator_2, &denominator_2) ==2){
+			break;
+		}
+		else{
+			if (scanf("%f", &float_value_2)==1){
+				break;
+			}
+			else {
+				printf("uncorrect value\n");
+			}
 		};
 
 	// TODO проверка
@@ -59,6 +77,7 @@ int main(){
 			result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
 			result_den = denominator_1*denominator_2;
 			// TODO сокращение дроби путем поиска НОК используя алгоритм Евклида
+			
 		break;
 
 		case '-':
