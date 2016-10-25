@@ -45,33 +45,48 @@ int main(){
 	while(1){
 		printf("Enter first value:\n");
 		if (scanf("%i/%i",&numerator_1, &denominator_1) ==2){
-			break;
+			if (denominator_1 != 0){ // проверка знаменателя
+				break;
+			}
+			else {
+				printf("incorrect value\n");
+				continue;
+			}
 		}
-		else{
+		else {
 			if (scanf("%f", &float_value_1)==1){
-				break;
+					break;
 			}
 			else {
-				printf("incorrect value\n");
-			}
-		}
-
-	scanf("%2s",&operator);
-
-	printf("Enter second value:\n");
-	if (scanf("%i/%i",&numerator_2, &denominator_2) ==2){
-			break;
-		}
-		else{
-			if (scanf("%f", &float_value_2)==1){
-				break;
-			}
-			else {
-				printf("incorrect value\n");
-			}
+					printf("incorrect value\n");
+					continue;
+			};
 		};
 
-	// TODO проверка
+	printf("Enter operator: + - * / > < >= <= !=:\n");
+	scanf("%2s\n",&operator);
+
+	while (1){
+		printf("Enter second value:\n");
+		if (scanf("%i/%i",&numerator_2, &denominator_2) ==2){
+			if (denominator_2 != 0){ // проверка знаменателя
+				break;
+			}
+			else {
+				printf("incorrect value\n");
+				continue;
+				}
+			}
+			else{
+				if (scanf("%f", &float_value_2)==1){
+					break;
+				}
+				else {
+					printf("incorrect value\n");
+					continue;
+				}
+			};
+	};
 	// TODO различить поступившие данные (рац.дробь или десятична дробь)
 
 	// выполнение действий с рациональными дробями
@@ -81,34 +96,35 @@ int main(){
 			result_den = denominator_1*denominator_2;
 			//  сокращение дроби
 			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den )
+			printf("the answer is %i/%i", &result_num, &result_den );
 		break;
 
 		case '-':
 			result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
 			result_den = denominator_1*denominator_2;
 			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den )
+			printf("the answer is %i/%i", &result_num, &result_den );
 		break;
 
 		case '*':
 			result_num = numerator_1*numerator_2;
 			result_den = denominator_1*denominator_2;
 			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den )
+			printf("the answer is %i/%i", &result_num, &result_den );
 		break;
 
 		case '/':
 			result_num = numerator_1*denominator_2;
 			result_den = denominator_1*numerator_2;
 			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den )
+			printf("the answer is %i/%i", &result_num, &result_den );
 		break;
 		default:
 
 		break;
     }
     // TODO преобразовать рациональную дробь в десятичную
+
 
     // TODO работа с десятичными дробями
 
