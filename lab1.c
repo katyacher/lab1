@@ -18,9 +18,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-/*! \brief Main function
- *  \return
- */
 int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out the greatest common divisor (NOD)
    int c;
    while (b) {
@@ -31,7 +28,7 @@ int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out the gr
    return fabs(a);
  }
  
-void fruction_reduction (int *a, int *b){// function for fruction reduction - input  two pointers of numerator and denominator
+void fraction_reduction (int *a, int *b){// function for fraction reduction - input  two pointers of numerator and denominator
 	int Lnod =  nod(*a,*b);
 	*a /= Lnod;
 	*b /= Lnod;
@@ -55,7 +52,7 @@ int main(){
 				break;
 			}
 			else {
-				printf("uncorrect value\n");
+				printf("incorrect value\n");
 			}
 		}
 
@@ -70,46 +67,52 @@ int main(){
 				break;
 			}
 			else {
-				printf("uncorrect value\n");
+				printf("incorrect value\n");
 			}
 		};
 
 	// TODO проверка
-	// парсинг строки
+	// TODO различить поступившие данные (рац.дробь или десятична дробь)
+
 	// выполнение действий с рациональными дробями
     switch(operator){
 		case '+':
 			result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
 			result_den = denominator_1*denominator_2;
-			// TODO сокращение дроби путем поиска НОК используя алгоритм Евклида
-			fruction_reduction(&result_num, result_den);
-			
+			//  сокращение дроби
+			fraction_reduction(&result_num, &result_den);
+			printf("the answer is %i/%i", &result_num, &result_den )
 		break;
 
 		case '-':
 			result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
 			result_den = denominator_1*denominator_2;
-			fruction_reduction(&result_num, result_den);
+			fraction_reduction(&result_num, &result_den);
+			printf("the answer is %i/%i", &result_num, &result_den )
 		break;
 
 		case '*':
 			result_num = numerator_1*numerator_2;
 			result_den = denominator_1*denominator_2;
-			fruction_reduction(&result_num, result_den);
+			fraction_reduction(&result_num, &result_den);
+			printf("the answer is %i/%i", &result_num, &result_den )
 		break;
 
 		case '/':
 			result_num = numerator_1*denominator_2;
 			result_den = denominator_1*numerator_2;
-			fruction_reduction(&result_num, result_den);
+			fraction_reduction(&result_num, &result_den);
+			printf("the answer is %i/%i", &result_num, &result_den )
 		break;
 		default:
 
 		break;
     }
-    // работа с десятичными дробями
-
     // TODO преобразовать рациональную дробь в десятичную
+
+    // TODO работа с десятичными дробями
+
+
     switch (operator){
     	case '>':
 
