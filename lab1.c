@@ -30,7 +30,15 @@ int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out grate 
    }
    return fabs(a);
  }
-  
+ 
+int fruction_reduction (int a, int b){// function for fruction reduction - input numerator and denominator
+// return string with fruction
+	a = a / nod(a,b);
+	b = b / nod(a,b);
+	
+	return ("%i/%i", a,b);// TODO insert before a and b symbol of pointer
+	
+}
  
 int main(){
 	int numerator_1, denominator_1;
