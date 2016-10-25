@@ -40,12 +40,14 @@ int main(){
 	int result_num, result_den;
 	char operator[3];
 	float float_value_1, float_value_2;
+	int option_1,option_2;// различать поступившие данные (рац.дробь или десятична дробь)
 
 	// запрос и ввод данных
 	while(1){
 		printf("Enter first value:\n");
 		if (scanf("%i/%i",&numerator_1, &denominator_1) ==2){
 			if (denominator_1 != 0){ // проверка знаменателя
+				option_1 = 0;// введена рациональная дробь
 				break;
 			}
 			else {
@@ -55,7 +57,8 @@ int main(){
 		}
 		else {
 			if (scanf("%f", &float_value_1)==1){
-					break;
+				option_1 = 1;// введена десятичная дробь
+				break;
 			}
 			else {
 					printf("incorrect value\n");
@@ -63,13 +66,14 @@ int main(){
 			};
 		};
 
-	printf("Enter operator: + - * / > < >= <= !=:\n");
+	printf("Enter operator: + - * / > < >= <= != =:\n");
 	scanf("%2s\n",&operator);
 
 	while (1){
 		printf("Enter second value:\n");
 		if (scanf("%i/%i",&numerator_2, &denominator_2) ==2){
 			if (denominator_2 != 0){ // проверка знаменателя
+				option_2 = 0;// введена рациональная дробь
 				break;
 			}
 			else {
@@ -79,6 +83,7 @@ int main(){
 			}
 			else{
 				if (scanf("%f", &float_value_2)==1){
+					option_2 = 1;// введена десятичная дробь
 					break;
 				}
 				else {
@@ -87,7 +92,14 @@ int main(){
 				}
 			};
 	};
-	// TODO различить поступившие данные (рац.дробь или десятична дробь)
+
+	if (option_1 == 0 & option_2 == 0){
+		// выполняем действия с рац дробями
+
+	}
+	else{// действия с десятичными дробями
+
+	}
 
 	// выполнение действий с рациональными дробями
     switch(operator){
@@ -120,9 +132,9 @@ int main(){
 			printf("the answer is %i/%i", &result_num, &result_den );
 		break;
 		default:
-
+			printf ("unknown operator\n");
 		break;
-    }
+    };
     // TODO преобразовать рациональную дробь в десятичную
 
 
@@ -131,26 +143,29 @@ int main(){
 
     switch (operator){
     	case '>':
-
+    		return (float_value_1 > float_value_2);
     	break;
-
     	case '<':
-
+    		return (float_value_1 < float_value_2);
     	break;
     	case '>=':
-
+    		return (float_value_1 >= float_value_2);
     	break;
     	case '<=':
-
+    		return (float_value_1 <= float_value_2);
     	break;
     	case '!=':
-
+    		return (float_value_1 != float_value_2);
     	break;
-
-    }
-
+    	case '=':
+    	    return (float_value_1 == float_value_2);
+    	break;
+    	default:
+    		printf ("unknown operator\n");
+    	break;
+    };
 	return 0;
-}
+};
 /*
 пример создания дочернего процесса
 
