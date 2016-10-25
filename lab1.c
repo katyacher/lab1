@@ -21,7 +21,7 @@
 /*! \brief Main function
  *  \return
  */
-int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out grate common division (NOD)
+int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out the greatest common divisor (NOD)
    int c;
    while (b) {
       c = a % b;
@@ -31,13 +31,10 @@ int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out grate 
    return fabs(a);
  }
  
-int fruction_reduction (int a, int b){// function for fruction reduction - input numerator and denominator
-// return string with fruction
-	a = a / nod(a,b);
-	b = b / nod(a,b);
-	
-	return ("%i/%i", a,b);// TODO insert before a and b symbol of pointer
-	
+void fruction_reduction (int *a, int *b){// function for fruction reduction - input  two pointers of numerator and denominator
+	int Lnod =  nod(*a,*b);
+	*a /= Lnod;
+	*b /= Lnod;
 }
  
 int main(){
@@ -85,22 +82,26 @@ int main(){
 			result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
 			result_den = denominator_1*denominator_2;
 			// TODO сокращение дроби путем поиска НОК используя алгоритм Евклида
+			fruction_reduction(&result_num, result_den);
 			
 		break;
 
 		case '-':
 			result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
 			result_den = denominator_1*denominator_2;
+			fruction_reduction(&result_num, result_den);
 		break;
 
 		case '*':
 			result_num = numerator_1*numerator_2;
 			result_den = denominator_1*denominator_2;
+			fruction_reduction(&result_num, result_den);
 		break;
 
 		case '/':
 			result_num = numerator_1*denominator_2;
 			result_den = denominator_1*numerator_2;
+			fruction_reduction(&result_num, result_den);
 		break;
 		default:
 
