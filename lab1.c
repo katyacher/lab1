@@ -69,7 +69,7 @@ int main(){
 		};
 
 	printf("Enter operator: + - * / > < >= <= != =:\n");
-	scanf("%2s\n",&operator);
+	scanf("%2s\n",operator);
 
 	while (1){
 		printf("Enter second value:\n");
@@ -100,34 +100,34 @@ int main(){
 		// выполняем действия с рац дробями
 
 		// выполнение действий с рациональными дробями
-		    switch (operator){
+		    switch (operator){// operator - это указатель на строку, нужно переделывать на  if/else и strcmp()
 				case '+':
 					result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
 					result_den = denominator_1*denominator_2;
 					//  сокращение дроби
 					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", &result_num, &result_den );
+					printf("the answer is %i/%i", result_num, result_den );
 				break;
 
 				case '-':
 					result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
 					result_den = denominator_1*denominator_2;
 					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", &result_num, &result_den );
+					printf("the answer is %i/%i", result_num, result_den );
 				break;
 
 				case '*':
 					result_num = numerator_1*numerator_2;
 					result_den = denominator_1*denominator_2;
 					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", &result_num, &result_den );
+					printf("the answer is %i/%i", result_num, result_den );
 				break;
 
 				case '/':
 					result_num = numerator_1*denominator_2;
 					result_den = denominator_1*numerator_2;
 					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", &result_num, &result_den );
+					printf("the answer is %i/%i", result_num, result_den );
 				break;
 
 				case '>':
