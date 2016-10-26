@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <math.h>
 #include <sys/types.h>
 
 int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out the greatest common divisor (NOD)
@@ -48,6 +49,7 @@ int main(){
 		if (scanf("%i/%i",&numerator_1, &denominator_1) ==2){
 			if (denominator_1 != 0){ // проверка знаменателя
 				option_1 = 0;// введена рациональная дробь
+				float_value_1 = numerator_1/denominator_1;
 				break;
 			}
 			else {
@@ -74,6 +76,7 @@ int main(){
 		if (scanf("%i/%i",&numerator_2, &denominator_2) ==2){
 			if (denominator_2 != 0){ // проверка знаменателя
 				option_2 = 0;// введена рациональная дробь
+				float_value_2 = numerator_2/denominator_2;
 				break;
 			}
 			else {
@@ -93,79 +96,155 @@ int main(){
 			};
 	};
 
-	if (option_1 == 0 & option_2 == 0){
+	if (option_1 == 0 && option_2 == 0){
 		// выполняем действия с рац дробями
 
+		// выполнение действий с рациональными дробями
+		    switch (operator){
+				case '+':
+					result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
+					result_den = denominator_1*denominator_2;
+					//  сокращение дроби
+					fraction_reduction(&result_num, &result_den);
+					printf("the answer is %i/%i", &result_num, &result_den );
+				break;
+
+				case '-':
+					result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
+					result_den = denominator_1*denominator_2;
+					fraction_reduction(&result_num, &result_den);
+					printf("the answer is %i/%i", &result_num, &result_den );
+				break;
+
+				case '*':
+					result_num = numerator_1*numerator_2;
+					result_den = denominator_1*denominator_2;
+					fraction_reduction(&result_num, &result_den);
+					printf("the answer is %i/%i", &result_num, &result_den );
+				break;
+
+				case '/':
+					result_num = numerator_1*denominator_2;
+					result_den = denominator_1*numerator_2;
+					fraction_reduction(&result_num, &result_den);
+					printf("the answer is %i/%i", &result_num, &result_den );
+				break;
+
+				case '>':
+					if (float_value_1 > float_value_2){
+						printf("True");
+					} else {
+						printf("False");
+					};
+				break;
+				case '<':
+					if (float_value_1 < float_value_2){
+						printf("True");
+					} else {
+					printf("False");
+					};
+				break;
+				case '>=':
+					if (float_value_1 >= float_value_2){
+						printf("True");
+					} else {
+						printf("False");
+					};
+				break;
+				case '<=':
+					if (float_value_1 <= float_value_2){
+						printf("True");
+					} else {
+						printf("False");
+					};
+				break;
+				case '!=':
+					if (float_value_1 != float_value_2){
+						printf("True");
+					} else {
+						printf("False");
+					};
+				break;
+				case '=':
+					if (float_value_1 == float_value_2){
+						printf("True");
+					} else {
+						printf("False");
+					};
+				break;
+				default:
+					printf ("unknown operator\n");
+				break;
+				};
 	}
-	else{// действия с десятичными дробями
+	else {// действия с десятичными дробями
+		switch (operator) {
+			case '+':
+				printf("%.3f\n",float_value_1 + float_value_2);
+			break;
+			case '-':
+				printf("%.3f\n",float_value_1 - float_value_2);
+			break;
+			case '*':
+				printf("%.3f\n",float_value_1 * float_value_2);
+			break;
+			case '/':
+				printf("%.3f\n",float_value_1 / float_value_2);
+			break;
+			case '>':
+		    	if (float_value_1 > float_value_2){
+		    		printf("True");
+		    	} else {
+		    		printf("False");
+		    	};
+		    break;
+		    case '<':
+		    	if (float_value_1 < float_value_2){
+		    		printf("True");
+		    	} else {
+		    		printf("False");
+		    	};
+		    break;
+		    case '>=':
+		    	if (float_value_1 >= float_value_2){
+		    		printf("True");
+		    	} else {
+		    		printf("False");
+		    	};
+		    break;
+		    case '<=':
+		    	if (float_value_1 <= float_value_2){
+		    		printf("True");
+		    	} else {
+		    		printf("False");
+		    	};
+		    break;
+		    case '!=':
+		    	if (float_value_1 != float_value_2){
+		    		printf("True");
+		    	} else {
+		    		printf("False");
+		    	};
+		    break;
+		    case '=':
+		    	if (float_value_1 == float_value_2){
+		    		printf("True");
+		    	} else {
+		    		printf("False");
+		    	};
+		    break;
+		    default:
+		    	printf ("unknown operator\n");
+		    break;
+		    };
 
-	}
+	};
 
-	// выполнение действий с рациональными дробями
-    switch(operator){
-		case '+':
-			result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
-			result_den = denominator_1*denominator_2;
-			//  сокращение дроби
-			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den );
-		break;
-
-		case '-':
-			result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
-			result_den = denominator_1*denominator_2;
-			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den );
-		break;
-
-		case '*':
-			result_num = numerator_1*numerator_2;
-			result_den = denominator_1*denominator_2;
-			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den );
-		break;
-
-		case '/':
-			result_num = numerator_1*denominator_2;
-			result_den = denominator_1*numerator_2;
-			fraction_reduction(&result_num, &result_den);
-			printf("the answer is %i/%i", &result_num, &result_den );
-		break;
-		default:
-			printf ("unknown operator\n");
-		break;
-    };
-    // TODO преобразовать рациональную дробь в десятичную
-
-
-    // TODO работа с десятичными дробями
-
-
-    switch (operator){
-    	case '>':
-    		return (float_value_1 > float_value_2);
-    	break;
-    	case '<':
-    		return (float_value_1 < float_value_2);
-    	break;
-    	case '>=':
-    		return (float_value_1 >= float_value_2);
-    	break;
-    	case '<=':
-    		return (float_value_1 <= float_value_2);
-    	break;
-    	case '!=':
-    		return (float_value_1 != float_value_2);
-    	break;
-    	case '=':
-    	    return (float_value_1 == float_value_2);
-    	break;
-    	default:
-    		printf ("unknown operator\n");
-    	break;
-    };
+	};
 	return 0;
 };
+
+
 /*
 пример создания дочернего процесса
 
