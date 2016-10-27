@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include <math.h>
 #include <sys/types.h>
 
@@ -36,10 +37,10 @@ void fraction_reduction (int *a, int *b){// function for fraction reduction - in
 }
  
 int main(){
-	int numerator_1, denominator_1;
-	int numerator_2, denominator_2;
-	int result_num, result_den;
-	char operator[3];
+	int numerator_1, denominator_1;				//числитель и знаменатель первой дроби
+	int numerator_2, denominator_2;				//числитель знаменатель второй дроби
+	int result_num, result_den;					//результаты действий над дробями
+	char operator[3];							//оператор
 	float float_value_1, float_value_2;
 	int option_1,option_2;// различать поступившие данные (рац.дробь или десятична дробь)
 
@@ -51,22 +52,20 @@ int main(){
 				option_1 = 0;// введена рациональная дробь
 				float_value_1 = numerator_1/denominator_1;
 				break;
-			}
-			else {
+			} else {
 				printf("incorrect value\n");
 				continue;
 			}
-		}
-		else {
+		} else {
 			if (scanf("%f", &float_value_1)==1){
 				option_1 = 1;// введена десятичная дробь
 				break;
-			}
-			else {
-					printf("incorrect value\n");
-					continue;
+			}else {
+				printf("incorrect value\n");
+				continue;
 			};
 		};
+	};
 
 	printf("Enter operator: + - * / > < >= <= != =:\n");
 	scanf("%2s\n",operator);
@@ -78,169 +77,135 @@ int main(){
 				option_2 = 0;// введена рациональная дробь
 				float_value_2 = numerator_2/denominator_2;
 				break;
-			}
-			else {
+			} else {
 				printf("incorrect value\n");
 				continue;
-				}
 			}
-			else{
-				if (scanf("%f", &float_value_2)==1){
-					option_2 = 1;// введена десятичная дробь
-					break;
-				}
-				else {
-					printf("incorrect value\n");
-					continue;
-				}
-			};
+		} else {
+			if (scanf("%f", &float_value_2)==1){
+				option_2 = 1;// введена десятичная дробь
+				break;
+			} else {
+				printf("incorrect value\n");
+				continue;
+			}
+		};
 	};
 
 	if (option_1 == 0 && option_2 == 0){
-		// выполняем действия с рац дробями
-
 		// выполнение действий с рациональными дробями
-		    switch (operator){// operator - это указатель на строку, нужно переделывать на  if/else и strcmp()
-				case '+':
-					result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
-					result_den = denominator_1*denominator_2;
-					//  сокращение дроби
-					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", result_num, result_den );
-				break;
-
-				case '-':
-					result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
-					result_den = denominator_1*denominator_2;
-					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", result_num, result_den );
-				break;
-
-				case '*':
-					result_num = numerator_1*numerator_2;
-					result_den = denominator_1*denominator_2;
-					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", result_num, result_den );
-				break;
-
-				case '/':
-					result_num = numerator_1*denominator_2;
-					result_den = denominator_1*numerator_2;
-					fraction_reduction(&result_num, &result_den);
-					printf("the answer is %i/%i", result_num, result_den );
-				break;
-
-				case '>':
-					if (float_value_1 > float_value_2){
-						printf("True");
-					} else {
-						printf("False");
-					};
-				break;
-				case '<':
-					if (float_value_1 < float_value_2){
-						printf("True");
-					} else {
-					printf("False");
-					};
-				break;
-				case '>=':
-					if (float_value_1 >= float_value_2){
-						printf("True");
-					} else {
-						printf("False");
-					};
-				break;
-				case '<=':
-					if (float_value_1 <= float_value_2){
-						printf("True");
-					} else {
-						printf("False");
-					};
-				break;
-				case '!=':
-					if (float_value_1 != float_value_2){
-						printf("True");
-					} else {
-						printf("False");
-					};
-				break;
-				case '=':
-					if (float_value_1 == float_value_2){
-						printf("True");
-					} else {
-						printf("False");
-					};
-				break;
-				default:
-					printf ("unknown operator\n");
-				break;
-				};
+		if (!strcmp (operator, "+")==0){// operator - это указатель на строку, нужно переделывать на  if/else и strcmp()
+			result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
+			result_den = denominator_1*denominator_2;
+			fraction_reduction(&result_num, &result_den);			//  сокращение дроби
+			printf("the answer is %i/%i", result_num, result_den );
+		}else if (!strcmp (operator, "-")==0){
+			result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
+			result_den = denominator_1*denominator_2;
+			fraction_reduction(&result_num, &result_den);
+			printf("the answer is %i/%i", result_num, result_den );
+		}else if (!strcmp (operator, "*")==0){
+			result_num = numerator_1*numerator_2;
+			result_den = denominator_1*denominator_2;
+			fraction_reduction(&result_num, &result_den);
+			printf("the answer is %i/%i", result_num, result_den );
+		}else if (!strcmp (operator, "/")==0){
+			result_num = numerator_1*denominator_2;
+			result_den = denominator_1*numerator_2;
+			fraction_reduction(&result_num, &result_den);
+			printf("the answer is %i/%i", result_num, result_den );
+		}else if (!strcmp (operator, ">")==0){
+			if (float_value_1 > float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "<")==0){
+			if (float_value_1 < float_value_2){
+				printf("True");
+			} else {
+			printf("False");
+			};
+		}else if (!strcmp (operator, ">=")==0){
+			if (float_value_1 >= float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "<=")==0){
+			if (float_value_1 <= float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "!=")==0){
+			if (float_value_1 != float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "=")==0){
+			if (float_value_1 == float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else {
+			printf ("unknown operator\n");
+		};
 	}
 	else {// действия с десятичными дробями
-		switch (operator) {
-			case '+':
-				printf("%.3f\n",float_value_1 + float_value_2);
-			break;
-			case '-':
-				printf("%.3f\n",float_value_1 - float_value_2);
-			break;
-			case '*':
-				printf("%.3f\n",float_value_1 * float_value_2);
-			break;
-			case '/':
-				printf("%.3f\n",float_value_1 / float_value_2);
-			break;
-			case '>':
-		    	if (float_value_1 > float_value_2){
-		    		printf("True");
-		    	} else {
-		    		printf("False");
-		    	};
-		    break;
-		    case '<':
-		    	if (float_value_1 < float_value_2){
-		    		printf("True");
-		    	} else {
-		    		printf("False");
-		    	};
-		    break;
-		    case '>=':
-		    	if (float_value_1 >= float_value_2){
-		    		printf("True");
-		    	} else {
-		    		printf("False");
-		    	};
-		    break;
-		    case '<=':
-		    	if (float_value_1 <= float_value_2){
-		    		printf("True");
-		    	} else {
-		    		printf("False");
-		    	};
-		    break;
-		    case '!=':
-		    	if (float_value_1 != float_value_2){
-		    		printf("True");
-		    	} else {
-		    		printf("False");
-		    	};
-		    break;
-		    case '=':
-		    	if (float_value_1 == float_value_2){
-		    		printf("True");
-		    	} else {
-		    		printf("False");
-		    	};
-		    break;
-		    default:
-		    	printf ("unknown operator\n");
-		    break;
-		    };
+		if (!strcmp (operator, "+")==0){
+			printf("%.3f\n",float_value_1 + float_value_2);
+		 }else if (!strcmp (operator, "-")==0){
+			printf("%.3f\n",float_value_1 - float_value_2);
+		 }else if (!strcmp (operator, "*")==0){
+			printf("%.3f\n",float_value_1 * float_value_2);
+		 }else if (!strcmp (operator, "/")==0){
+			printf("%.3f\n",float_value_1 / float_value_2);
+		 }else if (!strcmp (operator, ">")==0){
+			if (float_value_1 > float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "<")==0){
+			if (float_value_1 < float_value_2){
+				printf("True");
+			} else {
+			printf("False");
+			};
+		}else if (!strcmp (operator, ">=")==0){
+			if (float_value_1 >= float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "<=")==0){
+			if (float_value_1 <= float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "!=")==0){
+			if (float_value_1 != float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else if (!strcmp (operator, "=")==0){
+			if (float_value_1 == float_value_2){
+				printf("True");
+			} else {
+				printf("False");
+			};
+		}else {
+			printf ("unknown operator\n");
+		};
 
 	};
 
-	};
+
 	return 0;
 };
 
