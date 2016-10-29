@@ -56,18 +56,25 @@ void stdin_free(){
  */
 
 int main(){
-	int numerator_1, denominator_1;				/*числитель и знаменатель первой дроби*/
-	int numerator_2, denominator_2;				/*числитель знаменатель второй дроби*/
-	int result_num, result_den;					/*результаты действий над дробями*/
-	char operator[3];							/*оператор*/
+	/*числитель и знаменатель первой дроби*/
+	int numerator_1, denominator_1;
+	/*числитель знаменатель второй дроби*/
+	int numerator_2, denominator_2;
+	/*результаты действий над дробями*/
+	int result_num, result_den;
+	/*оператор*/
+	char operator[3];
 	float float_value_1, float_value_2;
-	int option_1,option_2;						/*флаг для различения поступивших данных (рац.дробь или десятичная дробь)*/
+	/*флаг для различения поступивших данных (рац.дробь или десятичная дробь)*/
+	int option_1,option_2;
 	/*запрос и ввод данных*/
 	while(1){
 		printf("Enter first value:");
 		if (scanf("%i/%i",&numerator_1, &denominator_1) == 2){
-			if (denominator_1 != 0){ 							/*проверка знаменателя*/
-				option_1 = 0;									/*введена рациональная дробь*/
+			/*проверка знаменателя*/
+			if (denominator_1 != 0){
+				/*введена рациональная дробь*/
+				option_1 = 0;
 				float_value_1 = numerator_1/denominator_1;
 				stdin_free();
 				break;
@@ -78,7 +85,8 @@ int main(){
 			}
 		} else {
 			if (scanf("%f", &float_value_1)==1){
-				option_1 = 1;									/*введена десятичная дробь*/
+				/*введена десятичная дробь*/
+				option_1 = 1;
 				stdin_free();
 				break;
 			} else {
@@ -96,8 +104,10 @@ int main(){
 	while (1){
 		printf("Enter second value:\n");
 		if (scanf("%i/%i",&numerator_2, &denominator_2) ==2){
-			if (denominator_2 != 0){ 						/*проверка знаменателя*/
-				option_2 = 0;								/*введена рациональная дробь*/
+			/*проверка знаменателя*/
+			if (denominator_2 != 0){
+				/*введена рациональная дробь*/
+				option_2 = 0;
 				float_value_2 = numerator_2/denominator_2;
 				stdin_free();
 				break;
@@ -108,7 +118,8 @@ int main(){
 			}
 		} else {
 			if (scanf("%f", &float_value_2)==1){
-				option_2 = 1;								/*введена десятичная дробь*/
+				/*введена десятичная дробь*/
+				option_2 = 1;
 				stdin_free();
 				break;
 			} else {
