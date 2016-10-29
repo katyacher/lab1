@@ -1,26 +1,25 @@
-/*
- * lab1.c
- *Вариант 15. Программа принимает от пользователя три строки, (первая и
-третья строки – это правильные рациональные или десятичные дроби вида
-«1/3» или «0,5», вторая строка – это знак арифметической операции вида «+»,
-«-», «*», «/» либо операции сравнения «<», «>», «=», «!=», «>=», «<=»),
-выполняет требуемую операцию над полученными операндами, и выводит
-результат на экран. Обеспечить также сокращение дроби при необходимости.
-Если оба операнда арифметической операции являются рациональными
-дробями, результатом тоже должна быть рациональная дробь. Для операций
-сравнения достаточно результата «Истина» или «Ложь».
- *  Created on: Oct 21, 2016
- *      Author: kate
+/*! \file lab1.c
+ * 	\brief Laboratory work №1 variant 15, forc and exec process,
+ *
+ * 	\details Forking child process with its executing. (TODO)
+ *           Child process is a program for operation with fraction.
+ *           Unit-testing for functions to operate on fractions.(TODO)
+ *           Created on: Oct 21, 2016
+ *     		 Author: kate
  */
 
 
 #include <stdio.h>
 #include <unistd.h>
-#include <string.h> // strcmp()
-#include <math.h> // fabs()
+#include <string.h>
+#include <math.h>
 #include <sys/types.h>
 
-int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out the greatest common divisor (NOD)
+/*! \brief Nod function
+ * \details Euklidian algorithm -  input two numbers
+ *  \return return the greatest common divisor (NOD)
+ */
+int nod(int a, int b) { //
    int c;
    while (b) {
       c = a % b;
@@ -29,33 +28,46 @@ int nod(int a, int b) { //  Euklidian algorithm -  input two numbers, out the gr
    }
    return fabs(a);
  }
- 
-void fraction_reduction (int *a, int *b){// function for fraction reduction - input  two pointers of numerator and denominator
+/*! \brief Fraction_reduction function
+ *  \details function for fraction reduction. It takes two pointers on numerator and denominator of fraction
+ *  \return result of reduction
+ */
+void fraction_reduction (int *a, int *b){//  -
 	int Lnod =  nod(*a,*b);
 	*a /= Lnod;
 	*b /= Lnod;
 }
 
-void stdin_free(){			// функция для очистки stdin
+/*! \brief Stdin_free function
+ *  \details This function cleans stdin after using scanf().
+ *  \return Integer 0 upon exit success
+ */
+void stdin_free(){
 	while(1) {
+		/* value is a return value of getchar()*/
 		int value = getchar();
 		if (value == EOF || value=='\n') break;
 	};
 }
 
+/*! \brief Main function
+ *  \details It takes the value from the user and makes operations on fractions
+ *  \return Integer 0 upon exit success
+ */
+
 int main(){
-	int numerator_1, denominator_1;				//числитель и знаменатель первой дроби
-	int numerator_2, denominator_2;				//числитель знаменатель второй дроби
-	int result_num, result_den;					//результаты действий над дробями
-	char operator[3];							//оператор
+	int numerator_1, denominator_1;				/*числитель и знаменатель первой дроби*/
+	int numerator_2, denominator_2;				/*числитель знаменатель второй дроби*/
+	int result_num, result_den;					/*результаты действий над дробями*/
+	char operator[3];							/*оператор*/
 	float float_value_1, float_value_2;
-	int option_1,option_2;						// различать поступившие данные (рац.дробь или десятична дробь)
-	// запрос и ввод данных
+	int option_1,option_2;						/*флаг для различения поступивших данных (рац.дробь или десятичная дробь)*/
+	/*запрос и ввод данных*/
 	while(1){
 		printf("Enter first value:");
 		if (scanf("%i/%i",&numerator_1, &denominator_1) == 2){
-			if (denominator_1 != 0){ 							// проверка знаменателя
-				option_1 = 0;									// введена рациональная дробь
+			if (denominator_1 != 0){ 							/*проверка знаменателя*/
+				option_1 = 0;									/*введена рациональная дробь*/
 				float_value_1 = numerator_1/denominator_1;
 				stdin_free();
 				break;
@@ -66,7 +78,7 @@ int main(){
 			}
 		} else {
 			if (scanf("%f", &float_value_1)==1){
-				option_1 = 1;// введена десятичная дробь
+				option_1 = 1;									/*введена десятичная дробь*/
 				stdin_free();
 				break;
 			} else {
@@ -84,8 +96,8 @@ int main(){
 	while (1){
 		printf("Enter second value:\n");
 		if (scanf("%i/%i",&numerator_2, &denominator_2) ==2){
-			if (denominator_2 != 0){ 						// проверка знаменателя
-				option_2 = 0;								// введена рациональная дробь
+			if (denominator_2 != 0){ 						/*проверка знаменателя*/
+				option_2 = 0;								/*введена рациональная дробь*/
 				float_value_2 = numerator_2/denominator_2;
 				stdin_free();
 				break;
@@ -96,7 +108,7 @@ int main(){
 			}
 		} else {
 			if (scanf("%f", &float_value_2)==1){
-				option_2 = 1;								// введена десятичная дробь
+				option_2 = 1;								/*введена десятичная дробь*/
 				stdin_free();
 				break;
 			} else {
@@ -107,11 +119,14 @@ int main(){
 		};
 	};
 
-	if (option_1 == 0 && option_2 == 0){		// выполнение действий с рациональными дробями
+	/*выполнение действий с рациональными дробями*/
+	/*если обе дроби имеют вид n/m */
+	/* сравнивается строка, полученная от пользователя с оператором и выполняется арифметическое действие*/
+	if (option_1 == 0 && option_2 == 0){
 		if (!strcmp (operator, "+")==0){
 			result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
 			result_den = denominator_1*denominator_2;
-			fraction_reduction(&result_num, &result_den);			//  сокращение дроби
+			fraction_reduction(&result_num, &result_den);
 			printf("the answer is %i/%i", result_num, result_den );
 		}else if (!strcmp (operator, "-")==0){
 			result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
@@ -168,7 +183,9 @@ int main(){
 			printf ("unknown operator\n");
 		};
 	}
-	else {															// действия с десятичными дробями
+	else {
+		/* если одна или обе дроби в виде десятичной, то выполняются действия с десятичными дробями*/
+		/* сравнивается строка, полученная от пользователя с оператором и выполняется арифметическое действие*/
 		if (!strcmp (operator, "+")==0){
 			printf("%.3f\n",float_value_1 + float_value_2);
 		 }else if (!strcmp (operator, "-")==0){
