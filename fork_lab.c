@@ -8,10 +8,12 @@
  *      Author: kate
  */
 
-#include <signal.h>
-#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
+#include <signal.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 /*! Global variable for exit status of child process */
 sig_atomic_t g_ChildExitStatus;
@@ -20,7 +22,7 @@ sig_atomic_t g_ChildExitStatus;
  *
  *  \details Clean up the child process via signal catching.
  *           Store process's exit status.
- *  \param signalNumber
+ *  \param  signalNumber
  *  \return void
  *  \par    Side effect:
  *          changes the g_ChildExitStatus variable
@@ -68,10 +70,10 @@ int main(){
 	/* The argument list.  */
 	char* argList[] =
 	{
-			//? TODO разобраться
+			//? TODO имя программы arg[0] и аргументы из дочернего процесса (превая дробь, оператор, вторая дробь)
 	};
 
-	lab1_swapn("lab.c", argList);
+	lab1_swapn("lab.c", argList); //
 
 	/* Wait for child process  */
 	wait(&childStatus);

@@ -1,8 +1,8 @@
 /*! \file	lab1.c
- * 	\brief	Laboratory work №1 variant 15, child process,
+ * \brief	Laboratory work №1 variant 15, child process,
  *
- * 	\details	Child process is a program for operation with fraction.
- *           	Unit-testing for functions to operate on fractions.(TODO)
+ * \details	Child process is a program for operation with fraction.
+ *           	Unit-testing for functions to operate on fractions.
  *           	Created on: Oct 21, 2016
  *     			 Author: kate
  */
@@ -13,12 +13,13 @@
 #include <string.h>
 #include <math.h>
 #include <sys/types.h>
+//#include <CUnit/Basic.h>
 
 /*! \brief	Nod function
  * \details	Euklidian algorithm -  input two numbers
- *  \return	the greatest common divisor (NOD)
+ * \return	the greatest common divisor (NOD)
  */
-int nod(int a, int b) { //
+int nod(int a, int b) {
    int c;
    while (b) {
       c = a % b;
@@ -27,15 +28,23 @@ int nod(int a, int b) { //
    }
    return fabs(a);
  }
+/*! \brief test 1 for nod function
+ *
+ */
+//void test_1_nod(void){
+//	CU_ASSERT(nod(2,4) == 2);
+//	CU_ASSERT(nod(0,4) == 1);
+//}
+
 /*! \brief	Fraction_reduction function
- *  \details	function for fraction reduction.
- *  			It takes two pointers on numerator and denominator of fraction and rewrite reduced value of them
+ * \details	function for fraction reduction.It takes two pointers on numerator and denominator of fraction
+ *  		and rewrite reduced value of them
  *
  */
 void fraction_reduction (int *a, int *b){//  -
-	int Lnod =  nod(*a,*b);
-	*a /= Lnod;
-	*b /= Lnod;
+	int Local_nod =  nod(*a,*b);
+	*a /= Local_nod;
+	*b /= Local_nod;
 }
 
 /*! \brief	Stdin_free function
@@ -55,9 +64,6 @@ void stdin_free(){
  */
 
 int main(){
-
-
-		/* This is the child process.  */
 		/*числитель и знаменатель первой дроби*/
 		int numerator_1, denominator_1;
 		/*числитель знаменатель второй дроби*/
@@ -136,57 +142,57 @@ int main(){
 		/*если обе дроби имеют вид n/m */
 		/* сравнивается строка, полученная от пользователя с оператором и выполняется арифметическое действие*/
 		if (option_1 == 0 && option_2 == 0){
-			if (!strcmp (operator, "+")==0){
+			if (strcmp (operator, "+") == 0){
 				result_num = numerator_1*denominator_2 + numerator_2*denominator_1;
 				result_den = denominator_1*denominator_2;
 				fraction_reduction(&result_num, &result_den);
 				printf("the answer is %i/%i", result_num, result_den );
-			}else if (!strcmp (operator, "-")==0){
+			}else if (strcmp (operator, "-") == 0){
 				result_num = numerator_1*denominator_2 - numerator_2*denominator_1;
 				result_den = denominator_1*denominator_2;
 				fraction_reduction(&result_num, &result_den);
 				printf("the answer is %i/%i", result_num, result_den );
-			}else if (!strcmp (operator, "*")==0){
+			}else if (strcmp (operator, "*") == 0){
 				result_num = numerator_1*numerator_2;
 				result_den = denominator_1*denominator_2;
 				fraction_reduction(&result_num, &result_den);
 				printf("the answer is %i/%i", result_num, result_den );
-			}else if (!strcmp (operator, "/")==0){
+			}else if (strcmp (operator, "/") == 0){
 				result_num = numerator_1*denominator_2;
 				result_den = denominator_1*numerator_2;
 				fraction_reduction(&result_num, &result_den);
 				printf("the answer is %i/%i", result_num, result_den );
-			}else if (!strcmp (operator, ">")==0){
+			}else if (strcmp (operator, ">") == 0){
 				if (float_value_1 > float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "<")==0){
+			}else if (strcmp (operator, "<") == 0){
 				if (float_value_1 < float_value_2){
 					printf("True");
 				} else {
 				printf("False");
 				};
-			}else if (!strcmp (operator, ">=")==0){
+			}else if (strcmp (operator, ">=") == 0){
 				if (float_value_1 >= float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "<=")==0){
+			}else if (strcmp (operator, "<=") == 0){
 				if (float_value_1 <= float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "!=")==0){
+			}else if (strcmp (operator, "!=")==0){
 				if (float_value_1 != float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "=")==0){
+			}else if (strcmp (operator, "=") == 0){
 				if (float_value_1 == float_value_2){
 					printf("True");
 				} else {
@@ -199,45 +205,45 @@ int main(){
 		else {
 			/* если одна или обе дроби в виде десятичной, то выполняются действия с десятичными дробями*/
 			/* сравнивается строка, полученная от пользователя с оператором и выполняется арифметическое действие*/
-			if (!strcmp (operator, "+")==0){
+			if (strcmp (operator, "+") == 0){
 				printf("%.3f\n",float_value_1 + float_value_2);
-			 }else if (!strcmp (operator, "-")==0){
+			 }else if (strcmp (operator, "-") == 0){
 				printf("%.3f\n",float_value_1 - float_value_2);
-			 }else if (!strcmp (operator, "*")==0){
+			 }else if (strcmp (operator, "*") == 0){
 				printf("%.3f\n",float_value_1 * float_value_2);
-			 }else if (!strcmp (operator, "/")==0){
+			 }else if (strcmp (operator, "/") == 0){
 				printf("%.3f\n",float_value_1 / float_value_2);
-			 }else if (!strcmp (operator, ">")==0){
+			 }else if (strcmp (operator, ">") == 0){
 				if (float_value_1 > float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "<")==0){
+			}else if (strcmp (operator, "<") == 0){
 				if (float_value_1 < float_value_2){
 					printf("True");
 				} else {
 				printf("False");
 				};
-			}else if (!strcmp (operator, ">=")==0){
+			}else if (strcmp (operator, ">=") == 0){
 				if (float_value_1 >= float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "<=")==0){
+			}else if (strcmp (operator, "<=") == 0){
 				if (float_value_1 <= float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "!=")==0){
+			}else if (strcmp (operator, "!=") == 0){
 				if (float_value_1 != float_value_2){
 					printf("True");
 				} else {
 					printf("False");
 				};
-			}else if (!strcmp (operator, "=")==0){
+			}else if (strcmp (operator, "=") == 0){
 				if (float_value_1 == float_value_2){
 					printf("True");
 				} else {
@@ -247,8 +253,19 @@ int main(){
 				printf ("unknown operator\n");
 			};
 		};
-	return 0;
+
+	/* пример  unit_тестирования
+	 *  CU_pSuite suite;
+		CU_initialize_registry();
+		suite = CU_add_suite("main_suite", NULL, NULL);
+		CU_ADD_TEST(suite, test_1_nod);
+		CU_basic_run_tests();
+
+		CU_cleanup_registry();
+		return CU_get_error();
+	 */
 	getchar();
+	return 0;
 };
 
 
